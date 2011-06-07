@@ -1,5 +1,5 @@
 /*
- *  vAccordion - Light jQuery accordion
+ *  vAccordion - Lightweight jQuery accordion
  *  Copyright (C) 2011  Vladimir Tsvang
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,11 @@
       'duration'  : 300,
       'switcher'  : '> a',
       'toggle'    : '> div',
-      'item'      : '> li'
+      'item'      : '> li',
+      'onOpenStart' : function() {},
+      'onOpenFinish' : function() {},
+      'onCloseStart' : function() {},
+      'onCloseFinish' : function() {}
     }, params);
 
     var $items = $(config.item, this);
@@ -38,7 +42,7 @@
     };
 
     $items.each(function(index, element) {
-      $(config.switcher, element).click(element, function(event) {
+      $(config.switcher, element).click(element, function(Event) {
         var $item = $(element);
         var $toggles = $(config.toggle, $item);
 
@@ -46,12 +50,16 @@
           var $toggle = $(toggle);
           var state = getData($toggle, 'state', $toggle.css('display'));
           if(state == 'none') {
+            config.onOpenStart(Event);
             $toggle.show(config.duration, function() {
               $toggle.data('state', 'block');
+              config.onOpenFinish(Event);
             });
           } else {
+            config.onCloseStart(Event);
             $toggle.hide(config.duration, function() {
               $toggle.data('state', 'none');
+              config.onCloseFinish(Event);
             });
           }
         });

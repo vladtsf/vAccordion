@@ -2,20 +2,41 @@
 <html>
   <head>
     <title>vAccordion Demo</title>
-    <style type="text/css">
-      #accordion div {
-        display: none;
-      }
-    </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../vAccordion.jquery.min.js"></script>
     <script type="text/javascript">
       jQuery(document).ready(function($) {
-        $('#accordion').vAccordion();
+        var options = {
+          'duration'  : 300,
+          'switcher'  : '> a',
+          'toggle'    : '> div',
+          'item'      : '> li',
+          'onOpenStart' : function(Event) {$(Event.target).css('color', '#f00');},
+          'onOpenFinish' : function(Event) {$(Event.target).css('color', '#000');},
+          'onCloseStart' : function(Event) {$(Event.target).css('color', '#f00');},
+          'onCloseFinish' : function(Event) {$(Event.target).css('color', '#000');}
+        };
+
+
+        $('#accordion').vAccordion(options);
       });
     </script>
+    <style type="text/css">
+      #accordion div {
+        display: none;
+        padding-left: 15px;
+      }
+
+      #accordion li {
+        list-style-type: none;
+      }
+
+      #accordion a {
+        color: #000;
+      }
+    </style>
   </head>
-  <body>
+  <body>    
     <ul id="accordion">
       <li>
         <a href="#">Paragraph 1</a>
